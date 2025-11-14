@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - @yield('title', 'Finance Portal')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @stack('styles')
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

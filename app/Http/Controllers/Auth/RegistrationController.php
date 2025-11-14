@@ -61,23 +61,24 @@ class RegistrationController extends Controller
             ], 409);
         }
 
-        $aadharPath = $request->file('aadhar_document')->store('documents/aadhar', 'public');
-        $panPath = $request->file('pan_document')->store('documents/pan', 'public');
+        // $aadharPath = $request->file('aadhar_document')->store('documents/aadhar', 'public');
+        // $panPath = $request->file('pan_document')->store('documents/pan', 'public');
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => 'user', // Default role for new registrations
             'aadhar_number' => $validated['aadhar_number'],
             'pan_number' => $validated['pan_number'],
             'phone_number' => $validated['phone_number'],
             'age' => $validated['age'],
         ]);
 
-        $user->forceFill([
-            'aadhar_document_path' => $aadharPath,
-            'pan_document_path' => $panPath,
-        ])->save();
+        // $user->forceFill([
+        //     'aadhar_document_path' => $aadharPath,
+        //     'pan_document_path' => $panPath,
+        // ])->save();
 
         return response()->json([
             'status' => true,

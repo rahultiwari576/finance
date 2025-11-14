@@ -16,10 +16,19 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'aadhar_number',
         'pan_number',
         'phone_number',
         'age',
+        'address',
+        'area',
+        'city',
+        'state',
+        'zip_code',
+        'profession',
+        'education',
+        'additional_info',
         'aadhar_document_path',
         'pan_document_path',
     ];
@@ -36,6 +45,16 @@ class User extends Authenticatable
     public function loans()
     {
         return $this->hasMany(Loan::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
     }
 }
 

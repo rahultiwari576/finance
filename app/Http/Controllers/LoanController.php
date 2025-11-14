@@ -92,5 +92,40 @@ class LoanController extends Controller
     {
         return view('emi-calculator');
     }
+
+    public function delete($loanId): JsonResponse
+    {
+        $loan = \App\Models\Loan::findOrFail($loanId);
+
+        // Only admin can delete any loan, users can only delete their own loans
+        if (!Auth::user()->isAdmin() && $loan->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $loan->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Loan deleted successfully.',
+        ]);
+    }
+
+    public function deleteInstallment(LoanInstallment $installment): JsonResponse
+    {
+        // Only admin can delete EMIs
+        if (!Auth::user()->isAdmin()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthorized. Admin access required.',
+            ], 403);
+        }
+
+        $this->loanService->deleteInstallment($installment);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'EMI deleted successfully. Remaining balance updated.',
+        ]);
+    }
 }
 

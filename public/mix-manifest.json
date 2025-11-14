@@ -1,9 +1,8 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/auth.js": "/js/auth.js",
-    "/js/registration.js": "/js/registration.js",
-    "/js/home.js": "/js/home.js",
-    "/js/emi-calculator.js": "/js/emi-calculator.js",
-    "/css/app.css": "/css/app.css"
+    "/js/app.js": "/js/app.js?id=6553c9a3d73ad34b1b68f59ea4da7377",
+    "/js/auth.js": "/js/auth.js?id=3ca7c1d40cd4ef320a4ce206d998c127",
+    "/js/registration.js": "/js/registration.js?id=ccbb73243e35732ff6a04ada2164544e",
+    "/js/home.js": "/js/home.js?id=1d9c702540e75bf3821d274ebd090725",
+    "/js/emi-calculator.js": "/js/emi-calculator.js?id=aa0fc8b43f3e08e678b462d6516bdb83",
+    "/css/app.css": "/css/app.css?id=f1edd89b6502ca97f275aec0706595d9"
 }
-

@@ -81,6 +81,12 @@ return [
             'level' => 'debug',
         ],
 
+        'deprecations' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/deprecations.log'),
+            'level' => env('LOG_LEVEL', 'notice'),
+        ],
+
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],

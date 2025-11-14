@@ -171,7 +171,7 @@ class LoanService
     {
         return $user->loans()
             ->with(['installments' => function ($query) {
-                $query->where('status', 'pending')
+                $query->whereIn('status', ['pending', 'overdue'])
                     ->orderBy('due_date');
             }])
             ->get()
@@ -186,6 +186,7 @@ class LoanService
 
                     return [
                         'loan_id' => $loan->id,
+                        'installment_id' => $installment->id,
                         'due_date' => $installment->due_date->format('Y-m-d'),
                         'amount' => $installment->amount,
                         'penalty_amount' => $installment->penalty_amount,
@@ -212,6 +213,35 @@ class LoanService
             'pending_amount' => $pendingAmount,
             'pending_installments' => $pendingInstallments->count(),
         ];
+    }
+
+    public function deleteInstallment(LoanInstallment $installment): void
+    {
+        $loan = $installment->loan;
+        
+        // Delete the installment
+        $installment->delete();
+
+        // Recalculate remaining balance and update loan
+        $remainingInstallments = $loan->installments()->orderBy('due_date')->get();
+        
+        if ($remainingInstallments->isEmpty()) {
+            // No installments left, mark loan as completed
+            $loan->update([
+                'status' => 'completed',
+                'next_due_date' => null,
+            ]);
+        } else {
+            // Update next due date to the earliest pending installment
+            $nextInstallment = $remainingInstallments
+                ->where('status', 'pending')
+                ->first();
+            
+            $loan->update([
+                'status' => $nextInstallment ? 'active' : 'completed',
+                'next_due_date' => $nextInstallment?->due_date,
+            ]);
+        }
     }
 }
 

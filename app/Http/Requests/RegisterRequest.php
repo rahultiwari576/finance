@@ -21,8 +21,8 @@ class RegisterRequest extends FormRequest
             'phone_number' => ['required', 'string', 'regex:/^[0-9]{10}$/'],
             'aadhar_number' => ['required', 'digits:12', 'unique:users,aadhar_number'],
             'pan_number' => ['required', 'string', 'regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/'],
-            'aadhar_document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'pan_document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            // 'aadhar_document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            // 'pan_document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
         ];
     }
 }
